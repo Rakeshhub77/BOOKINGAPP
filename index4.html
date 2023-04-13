@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOKING</title>
+</head>
+<body>
+    <form onsubmit="saveToLocalStorage(event)">
+
+        <h1><b>ADD USER</h1>
+
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name">
+              </div>
+              <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email">
+              </div>
+              <div>
+                <label>Mobile</label>
+                <input type ="tel" id ="phoneNember">
+              </div>
+             <button>Submit</button>
+
+    </form>
+
+    <ul id="listOfItem"> </ul>
+    <script >
+function saveToLocalStorage(event){
+
+    event.preventDefault();
+    var username=event.target.name.value;
+    var email_id=event.target.email.value;
+    var phone =event.target.phoneNember.value;
+var user_details={username,email_id,phone}
+    // localStorage.setItem("username",username);
+    // localStorage.setItem("email_id",email_id);
+    // localStorage.setItem("phone",phone);
+
+//localStorage.setItem("user_details",JSON.stringify(user_details));   
+
+localStorage.setItem(user_details.email_id,JSON.stringify(user_details));
+showUserOnscreen(user_details)
+}
+
+function showUserOnscreen(user_details){
+
+    const parentElement= document.getElementById("listOfItem")
+const childElement=document.createElement ("li");
+childElement.textContent=user_details.username + "-" + user_details.email_id + "-" + user_details.phone
+
+const deleteButton =document.createElement("input")
+deleteButton.type="Button"
+deleteButton.value="Remove"
+deleteButton.onclick = () => {
+    localStorage.removeItem(user_details.email_id);
+    parentElement.removeChild(childElement)
+}
+
+
+childElement.appendChild(deleteButton)
+parentElement.appendChild(childElement);
+// parentElement.innerHTML = $ (user_details.usernam)-$ (user_details.email_id)- $(user_details.phone)
+}
+
+    </script>
+</body>
+</html>
